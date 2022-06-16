@@ -11,11 +11,26 @@ function App() {
  
   const [input, setInput] = useState('');
  
-  const agregarInput = val => {
-    setInput(input + val);
+  let ultimocaracter=input.length-1;
+
+  const esOperador = valor => {
+    return isNaN(valor) && (valor !== '=');
   };
 
-  // const signoInput = val => {}
+  const agregarInput = val => {
+    setInput(input + val);
+  }
+  const agregarSigno = val => {
+    setInput(input + val);
+      if(esOperador(input.charAt(ultimocaracter)) && esOperador(val)){
+        alert("ERROR: escribio dos signos de operacion seguidos!")
+        setInput('');
+        }
+      console.log("anteultimocaracter:",input.charAt(ultimocaracter));
+      console.log("val:",val);
+      console.log("input:",input);
+  };
+
 
   const calcularResultado = () => {
     if(input) {
@@ -40,27 +55,27 @@ function App() {
           <Boton manejarClick={agregarInput}>1</Boton>
           <Boton manejarClick={agregarInput}>2</Boton>
           <Boton manejarClick={agregarInput}>3</Boton>
-          <Boton manejarClick={agregarInput}>+</Boton>
+          <Boton manejarClick={agregarSigno}>+</Boton>
         </div>
         <div className='fila'>
           <Boton manejarClick={agregarInput}>4</Boton>
           <Boton manejarClick={agregarInput}>5</Boton>
           <Boton manejarClick={agregarInput}>6</Boton>
-          <Boton manejarClick={agregarInput}>-</Boton>
+          <Boton manejarClick={agregarSigno}>-</Boton>
 
         </div>
         <div className='fila'>
           <Boton manejarClick={agregarInput}>7</Boton>
           <Boton manejarClick={agregarInput}>8</Boton>
           <Boton manejarClick={agregarInput}>9</Boton>
-          <Boton manejarClick={agregarInput}>*</Boton>
+          <Boton manejarClick={agregarSigno}>*</Boton>
 
         </div>
         <div className='fila'>
           <Boton manejarClick={calcularResultado}>=</Boton>
           <Boton manejarClick={agregarInput}>0</Boton>
-          <Boton manejarClick={agregarInput}>.</Boton>
-          <Boton manejarClick={agregarInput}>/</Boton>
+          <Boton manejarClick={agregarSigno}>.</Boton>
+          <Boton manejarClick={agregarSigno}>/</Boton>
         </div>
         <div className='fila'>
           <BotonClear manejarClear={() => setInput('')} >Clear</BotonClear>
